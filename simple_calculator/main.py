@@ -6,21 +6,20 @@ from functools import reduce
 
 class SimpleCalculator:
     def add(self, *args):
-        return sum(args)
+        return reduce(operator.add, args)
 
-    def sub(self, a, b):
-        return a - b
+    def sub(self, *args):
+        return reduce(operator.sub, args)
 
     def mul(self, *args):
         if not all(args):
-            raise ValueError
+            raise ValueError()
         return reduce(operator.mul, args)
 
     def div(self, a, b):
-        try:
-            return a / b
-        except ZeroDivisionError:
+        if b == 0:
             return float("inf")
+        return a / b
 
     def avg(self, it, lt=None, ut=None):
         count = 0
